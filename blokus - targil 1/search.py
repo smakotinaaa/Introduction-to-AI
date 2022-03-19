@@ -49,8 +49,6 @@ class SearchProblem:
         util.raiseNotDefined()
 
 
-
-
 def depth_first_search(problem):
     """
     Search the deepest nodes in the search tree first.
@@ -74,23 +72,16 @@ def depth_first_search(problem):
         cur_node = stack.pop()
         if problem.is_goal_state(cur_node):
             while cur_node != problem.get_start_state():
-                cur_node = visited_dict[cur_node]
-                actions.append(visited_dict[cur_node])
+                actions.append((visited_dict[cur_node])[1])
+                cur_node = visited_dict[cur_node][0]
             actions.reverse()
             return actions
         else:
             for neighbour in problem.get_successors(cur_node):
                 if neighbour not in visited_dict.keys():
-                    visited_dict[neighbour] = cur_node
-                    stack.push(neighbour)
+                    visited_dict[neighbour[0]] = cur_node, neighbour[1]
+                    stack.push(neighbour[0])
     return actions
-
-    # print("Start:", problem.get_start_state().state)
-    # print("Is the start a goal?",
-    #       problem.is_goal_state(problem.get_start_state()))
-    # print("Start's successors:",
-    #       problem.get_successors(problem.get_start_state()))
-    #util.raiseNotDefined()
 
 
 def breadth_first_search(problem):
@@ -98,16 +89,51 @@ def breadth_first_search(problem):
     Search the shallowest nodes in the search tree first.
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
-
+    queue = util.Queue()
+    actions = list()
+    visited_dict = dict()
+    queue.push(problem.get_start_state())
+    while not queue.isEmpty():
+        cur_node = queue.pop()
+        if problem.is_goal_state(cur_node):
+            while cur_node != problem.get_start_state():
+                actions.append((visited_dict[cur_node])[1])
+                cur_node = visited_dict[cur_node][0]
+            actions.reverse()
+            return actions
+        else:
+            for neighbour in problem.get_successors(cur_node):
+                if neighbour not in visited_dict.keys():
+                    visited_dict[neighbour[0]] = cur_node, neighbour[1]
+                    queue.push(neighbour[0])
+    return actions
 
 
 def uniform_cost_search(problem):
     """
     Search the node of least total cost first.
     """
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    # "*** YOUR CODE HERE ***"
+    # util.raiseNotDefined()
+    priority_queue = util.PriorityQueue()
+    actions = list()
+    visited_dict = dict()
+    priority_queue.push(problem.get_start_state(),0)
+    while not priority_queue.isEmpty():
+        cur_node = priority_queue.pop()
+        if problem.is_goal_state(cur_node):
+            while cur_node != problem.get_start_state():
+                actions.append((visited_dict[cur_node])[1])
+                cur_node = visited_dict[cur_node][0]
+            actions.reverse()
+            return actions
+        else:
+            for neighbour in problem.get_successors(cur_node):
+                if neighbour not in visited_dict.keys():
+                    visited_dict[neighbour[0]] = cur_node, neighbour[1]
+                    priority_queue.push(neighbour[0], neighbour[2])
+    return actions
+
 
 
 def null_heuristic(state, problem=None):

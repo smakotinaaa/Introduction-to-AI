@@ -68,10 +68,10 @@ class BlokusCornersProblem(SearchProblem):
 
     def is_goal_state(self, state):
         # util.raiseNotDefined()
-        top_left = state[0][0]
-        top_right = state[0][self.board.board_w - 1]
-        down_left = state[self.board.board_h - 1][0]
-        down_right = state[self.board.board_h - 1][self.board.board_w - 1]
+        top_left = state.state[0][0]
+        top_right = state.state[0][self.board.board_w - 1]
+        down_left = state.state[self.board.board_h - 1][0]
+        down_right = state.state[self.board.board_h - 1][self.board.board_w - 1]
         return top_left != -1 and top_right != -1 and down_left != -1 and down_right != -1
 
     def get_successors(self, state):
