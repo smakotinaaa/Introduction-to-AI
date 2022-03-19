@@ -93,11 +93,15 @@ class BlokusCornersProblem(SearchProblem):
         """
         actions: A list of actions to take
 
-        This method returns the total cost of a particular sequence of actions.  The sequence must
+        This method returns the total cost of a particular sequence of actions.
+        The sequence must
         be composed of legal moves
         """
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        #util.raiseNotDefined()
+        total_cost = 0
+        for move in actions:
+            total_cost += move.piece.get_num_tiles()
+        return total_cost
 
 
 def blokus_corners_heuristic(state, problem):
@@ -121,7 +125,7 @@ class BlokusCoverProblem(SearchProblem):
                  targets=[(0, 0)]):
         self.targets = targets.copy()
         self.expanded = 0
-        "*** YOUR CODE HERE ***"
+        self.board = Board(board_w, board_h, 1, piece_list, starting_point)
 
     def get_start_state(self):
         """
