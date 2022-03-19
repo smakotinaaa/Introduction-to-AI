@@ -38,7 +38,8 @@ class BlokusFillProblem(SearchProblem):
         """
         # Note that for the search problem, there is only one player - #0
         self.expanded = self.expanded + 1
-        return [(state.do_move(0, move), move, 1) for move in state.get_legal_moves(0)]
+        return [(state.do_move(0, move), move, 1) for move in
+                state.get_legal_moves(0)]
 
     def get_cost_of_actions(self, actions):
         """
@@ -50,7 +51,6 @@ class BlokusFillProblem(SearchProblem):
         return len(actions)
 
 
-
 #####################################################
 # This portion is incomplete.  Time to write code!  #
 #####################################################
@@ -58,9 +58,7 @@ class BlokusCornersProblem(SearchProblem):
     def __init__(self, board_w, board_h, piece_list, starting_point=(0, 0)):
         self.expanded = 0
         self.board = Board(board_w, board_h, 1, piece_list, starting_point)
-        #TODO: check the number of players
-
-        "*** YOUR CODE HERE ***"
+        # TODO: check the number of players
 
     def get_start_state(self):
         """
@@ -69,9 +67,12 @@ class BlokusCornersProblem(SearchProblem):
         return self.board
 
     def is_goal_state(self, state):
-        "*** YOUR CODE HERE ***"
-
-        util.raiseNotDefined()
+        # util.raiseNotDefined()
+        top_left = state[0][0]
+        top_right = state[0][self.board.board_w - 1]
+        down_left = state[self.board.board_h - 1][0]
+        down_right = state[self.board.board_h - 1][self.board.board_w - 1]
+        return top_left != -1 and top_right != -1 and down_left != -1 and down_right != -1
 
     def get_successors(self, state):
         """
@@ -85,7 +86,8 @@ class BlokusCornersProblem(SearchProblem):
         """
         # Note that for the search problem, there is only one player - #0
         self.expanded = self.expanded + 1
-        return [(state.do_move(0, move), move, move.piece.get_num_tiles()) for move in state.get_legal_moves(0)]
+        return [(state.do_move(0, move), move, move.piece.get_num_tiles()) for
+                move in state.get_legal_moves(0)]
 
     def get_cost_of_actions(self, actions):
         """
@@ -115,7 +117,8 @@ def blokus_corners_heuristic(state, problem):
 
 
 class BlokusCoverProblem(SearchProblem):
-    def __init__(self, board_w, board_h, piece_list, starting_point=(0, 0), targets=[(0, 0)]):
+    def __init__(self, board_w, board_h, piece_list, starting_point=(0, 0),
+                 targets=[(0, 0)]):
         self.targets = targets.copy()
         self.expanded = 0
         "*** YOUR CODE HERE ***"
@@ -142,7 +145,8 @@ class BlokusCoverProblem(SearchProblem):
         """
         # Note that for the search problem, there is only one player - #0
         self.expanded = self.expanded + 1
-        return [(state.do_move(0, move), move, move.piece.get_num_tiles()) for move in state.get_legal_moves(0)]
+        return [(state.do_move(0, move), move, move.piece.get_num_tiles()) for
+                move in state.get_legal_moves(0)]
 
     def get_cost_of_actions(self, actions):
         """
@@ -166,7 +170,8 @@ class ClosestLocationSearch:
     but the objective is speed, not optimality.
     """
 
-    def __init__(self, board_w, board_h, piece_list, starting_point=(0, 0), targets=(0, 0)):
+    def __init__(self, board_w, board_h, piece_list, starting_point=(0, 0),
+                 targets=(0, 0)):
         self.expanded = 0
         self.targets = targets.copy()
         "*** YOUR CODE HERE ***"
@@ -200,13 +205,13 @@ class ClosestLocationSearch:
         util.raiseNotDefined()
 
 
-
 class MiniContestSearch:
     """
     Implement your contest entry here
     """
 
-    def __init__(self, board_w, board_h, piece_list, starting_point=(0, 0), targets=(0, 0)):
+    def __init__(self, board_w, board_h, piece_list, starting_point=(0, 0),
+                 targets=(0, 0)):
         self.targets = targets.copy()
         "*** YOUR CODE HERE ***"
 
@@ -219,4 +224,3 @@ class MiniContestSearch:
     def solve(self):
         "*** YOUR CODE HERE ***"
         util.raiseNotDefined()
-
