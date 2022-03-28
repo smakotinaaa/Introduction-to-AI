@@ -1,5 +1,7 @@
 from inputs import RandomInput
 from pieces import PieceList
+import time
+from datetime import  timedelta
 from blokus_problems import *
 from search import astar
 from displays import GuiDisplay
@@ -232,5 +234,8 @@ def main():
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     main()
+    end_time = time.time()
+    print(f'This took {end_time - start_time} seconds')
     input("Press Enter to continue...")
