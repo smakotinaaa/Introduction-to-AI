@@ -61,7 +61,6 @@ class BlokusCornersProblem(SearchProblem):
     def __init__(self, board_w, board_h, piece_list, starting_point=(0, 0)):
         self.expanded = 0
         self.board = Board(board_w, board_h, 1, piece_list, starting_point)
-        # TODO: check the number of players
 
     def get_start_state(self):
         """
@@ -70,7 +69,6 @@ class BlokusCornersProblem(SearchProblem):
         return self.board
 
     def is_goal_state(self, state):
-        # util.raiseNotDefined()
         top_left = state.state[0][0]
         top_right = state.state[0][self.board.board_w - 1]
         down_left = state.state[self.board.board_h - 1][0]
@@ -228,7 +226,6 @@ class BlokusCoverProblem(SearchProblem):
 
     def is_goal_state(self, state):
         "*** YOUR CODE HERE ***"
-        # util.raiseNotDefined()
         for target in self.targets:
             if state.state[target[0]][target[1]] == -1:
                 return False
@@ -253,11 +250,9 @@ class BlokusCoverProblem(SearchProblem):
         """
         actions: A list of actions to take
 
-        This method returns the total cost of a particular sequence of actions.  The sequence must
-        be composed of legal moves
+        This method returns the total cost of a particular sequence of actions.
+        The sequence must be composed of legal moves
         """
-        "*** YOUR CODE HERE ***"
-        # util.raiseNotDefined()
         total_cost = 0
         for move in actions:
             total_cost += move.piece.get_num_tiles()
@@ -265,13 +260,38 @@ class BlokusCoverProblem(SearchProblem):
 
 
 def blokus_cover_heuristic(state, problem):
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
-    # TODO: homework for eli
-    # goals = []
-    # for target in problem.targets:
-    #     if state.get_position(target[1], target[0]) == -1:
-    #         goals.append(target)
+    """
+    The main heuristic used is the amount of available targets left to cover.
+    """
+    available_targets = list()
+    for target in problem.targets:
+        if state.get_position(target[1], target[0]) == -1:
+            available_targets.append(target)
+    worst_heuristic_value = state.board_h * state.board_w
+    for available_target in available_targets:
+        if not check_target_reachable(state, available_target):
+            return worst_heuristic_value
+    return len(available_targets)
+
+
+def check_target_reachable(state, target):
+    """
+    The following function checks whether the target is reachable in the given
+    state. Returns True in case it is and False otherwise.
+    """
+    target_row = target[0]
+    target_col = target[1]
+    if target_row - 1 >= 0 and state.state[target_row - 1][target_col] != -1:
+        return False
+    if target_row + 1 < state.board_h and \
+            state.state[target_row + 1][target_col] != -1:
+        return False
+    if target_col - 1 >= 0 and state.state[target_row][target_col - 1] != -1:
+        return False
+    if target_col + 1 < state.board_w and \
+            state.state[target_row][target_col + 1] != -1:
+        return False
+    return True
 
 
 class ClosestLocationSearch:
