@@ -1,0 +1,12 @@
+﻿name,number,faculties,campus,students,hall type
+introduction to logic for programming,67501,CS,none,none,none
+genetics,71111,CB,none,none,none
+algebric structures,82435,M,none,none,none
+OOP,67125,CS,none,none,none
+organic chemistry,76472,CB,none,none,none
+computer architecture,67200,EE,none,none,none
+numerical analysis,86543,M,none,none,none
+applied mathematics,87201,EE,none,none,none
+introduction to computer science,67101,"CS, EE, CB",none,none,none
+data structure,67109,"CS, EE, CB",none,none,none
+infinitesimal calculus,80131,"CS, EE, CB, M",none,none,none
