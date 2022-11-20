@@ -41,7 +41,6 @@ class GradientDescentSolver:
 			if self.algorithm == RANDOM_GRADIENT_DESCENT and val < 0.009:
 				if min_state is None or self.state_.get_value() < min_state.get_value():
 					min_state = self.state_.__copy__()
-				print("im here!!!!!")
 				self.state_ = self.state_.generate_successor()
 			if delta < 0:
 				self.state_ = next_state
