@@ -48,7 +48,6 @@ class SimulatedAnnealingSolver:
                 val = random.uniform(0, 1)
                 if val < np.exp(-delta / temperature):
                     self.state_ = next_state
-                    print("here")
             temperature = self.cooling_function_(self.initial_temperature_, self.alpha_, t)
 
 
